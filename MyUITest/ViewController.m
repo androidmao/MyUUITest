@@ -30,6 +30,12 @@
 
 @property (nonatomic,strong) UICollectionView *collectionView;
 
+@property (nonatomic,assign)CGPoint startPoint;
+
+@property (nonatomic,assign)CGFloat zoomScale;
+
+@property (nonatomic,assign)CGPoint startCenter;
+
 @end
 
 @implementation ViewController
@@ -146,6 +152,9 @@
     [self.view addSubview:self.collectionView];
     
     [self.view setBackgroundColor:[UIColor blackColor]];
+
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPan:)];
+    [self.view addGestureRecognizer:pan];
     
 }
 
@@ -331,6 +340,51 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (void)didPan:(UIPanGestureRecognizer *)pan {
+    CGPoint location = [pan locationInView:self.view];
+    CGPoint point = [pan translationInView:self.view];
+    HYPictureCollectionViewCell *cell = (HYPictureCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    switch (pan.state) {
+        case UIGestureRecognizerStateBegan:
+        {
+            _startPoint = location;
+            _zoomScale = cell.zoomScrollView.zoomScale;
+            _startCenter = cell.zoomScrollView.imageView.center;
+        }
+            break;
+        case UIGestureRecognizerStateChanged:
+        {
+            if (location.y - _startPoint.y < 0) {
+                return;
+            }
+            double percent = 1 - fabs(point.y) / self.view.frame.size.height;// 移动距离 / 整个屏幕
+            double scalePercent = MAX(percent, 0.3);
+            if (location.y - _startPoint.y < 0) {
+                scalePercent = 1.0 * _zoomScale;
+            }else {
+                scalePercent = _zoomScale * scalePercent;
+            }
+            CGAffineTransform scale = CGAffineTransformMakeScale(scalePercent, scalePercent);
+            cell.zoomScrollView.imageView.transform = scale;
+            cell.zoomScrollView.imageView.center = CGPointMake(self.startCenter.x + point.x, self.startCenter.y + point.y);
+        }
+            break;
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateCancelled: {
+
+            cell.zoomScrollView.imageView.center = self.startCenter;
+
+            cell.zoomScrollView.imageView.transform = CGAffineTransformIdentity;
+
+        }
+            break;
+
+        default:
+            break;
+    }
 }
 
 
