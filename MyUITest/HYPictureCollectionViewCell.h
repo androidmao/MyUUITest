@@ -11,4 +11,6 @@
 
 @interface HYPictureCollectionViewCell : UICollectionViewCell
 
+@property (nonatomic,strong) HYZoomScrollView *zoomScrollView;
+
 @end

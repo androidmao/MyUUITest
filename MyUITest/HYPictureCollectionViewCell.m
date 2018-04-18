@@ -10,7 +10,7 @@
 
 @interface HYPictureCollectionViewCell ()
 
-@property (nonatomic,strong) HYZoomScrollView *zoomScrollView;
+
 
 @end
 

@@ -60,7 +60,6 @@
             
             [self.imageView setImage:image];
             
-            
         }];
         
     }
