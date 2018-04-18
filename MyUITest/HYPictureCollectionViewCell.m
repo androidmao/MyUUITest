@@ -8,7 +8,7 @@
 
 #import "HYPictureCollectionViewCell.h"
 
-@interface HYPictureCollectionViewCell ()
+@interface HYPictureCollectionViewCell ()<UIScrollViewDelegate>
 
 
 
@@ -21,6 +21,7 @@
     if (self) {
         [self setBackgroundColor:[UIColor clearColor]];
         [self.contentView addSubview:self.zoomScrollView];
+        
         UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)];
         [self addGestureRecognizer:singleTap];
         
@@ -38,10 +39,22 @@
 
 - (void)singleTapAction:(UITapGestureRecognizer *)gesture {
     NSLog(@"singleTapAction");
+    
+    CGPoint point = [gesture locationInView:(UIView *)self.zoomScrollView.imageView];
+    [self.zoomScrollView handleSingleTap:point];
+    
 }
 
 - (void)doubleTapAction:(UITapGestureRecognizer *)gesture {
     NSLog(@"doubleTapAction");
+    
+    CGPoint point = [gesture locationInView:(UIView *)self.zoomScrollView.imageView];
+    if (!CGRectContainsPoint(self.zoomScrollView.imageView.bounds, point)) {
+        return;
+    }
+    
+    [self.zoomScrollView handleDoubleTap:point];
+
 }
 
 - (HYZoomScrollView *)zoomScrollView {
@@ -50,5 +63,9 @@
     }
     return _zoomScrollView;
 }
+
+
+
+
 
 @end

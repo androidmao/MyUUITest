@@ -20,4 +20,23 @@
 
 @property (nonatomic,strong) UIImageView *imageView;
 
+@property (nonatomic,assign)BOOL imageViewIsMoving;
+
+/**
+ 处理单击手势
+
+ @param touchPoint touchPoint
+ */
+- (void)handleSingleTap:(CGPoint)touchPoint;
+
+
+/**
+ 处理双击手势
+
+ @param touchPoint touchPoint
+ */
+- (void)handleDoubleTap:(CGPoint)touchPoint;
+
+
+
 @end

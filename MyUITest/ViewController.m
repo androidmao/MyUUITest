@@ -27,6 +27,7 @@
 
 @property (nonatomic,weak) CAEmitterLayer *layer;
 
+@property (nonatomic,strong) UIView *backgroundView;
 
 @property (nonatomic,strong) UICollectionView *collectionView;
 
@@ -35,6 +36,8 @@
 @property (nonatomic,assign)CGFloat zoomScale;
 
 @property (nonatomic,assign)CGPoint startCenter;
+
+@property (nonatomic,strong) UIPageControl *pageControl;
 
 @end
 
@@ -113,9 +116,9 @@
 //    [self.view addSubview:self.slider];
     
     
-//    self.button.center = self.view.center;
-//
-//    [self.view addSubview:self.button];
+    self.button.center = self.view.center;
+
+    [self.view addSubview:self.button];
     
     
 //    dispatch_semaphore_t t = dispatch_semaphore_create(1);
@@ -148,13 +151,10 @@
 //    NSLog(@"信号量4：%ld",i4);
 //    NSLog(@"444444");
     
-    
-    [self.view addSubview:self.collectionView];
-    
-    [self.view setBackgroundColor:[UIColor blackColor]];
 
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPan:)];
-    [self.view addGestureRecognizer:pan];
+    
+    
+   
     
 }
 
@@ -233,52 +233,72 @@
 - (void)startAnima:(UIButton *)button {
     
     
-    NSMutableArray *images = [[NSMutableArray alloc]init];
-    for (int i = 0; i < SendCountEveryTime; i++) {
-        int x = arc4random() % 100 + 1;
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%03d",x]];
-        [images addObject:image];
+    if (!_backgroundView) {
+        _backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        [_backgroundView setBackgroundColor:[UIColor blackColor]];
+        
+        
+        [_backgroundView addSubview:self.collectionView];
+        [_backgroundView addSubview:self.pageControl];
     }
     
-    for (int i = 0; i < SendCountEveryTime; i++) {
-        CAEmitterCell *cell = [CAEmitterCell emitterCell];
-        cell.name           = [NSString stringWithFormat:@"explosion_%d",i];
-        cell.alphaRange     = 0.5;
-        cell.alphaSpeed     = -0.5;
-        cell.lifetime       = 4;
-        cell.lifetimeRange  = 2;
-        cell.velocity       = 600;
-        cell.velocityRange  = 200.00;
-        cell.scale          = 0.5;
-        cell.yAcceleration  = 600;
-        cell.emissionLongitude = 2 * M_PI - M_PI_4;
-        cell.emissionRange = M_PI;
-        [self.cells addObject:cell];
-    }
     
-    for (int i = 0; i< images.count; i++) {
-        CAEmitterCell *cell = self.cells[i];
-        cell.contents =  (__bridge id _Nullable)(([images[i] CGImage]));
-    }
-    CAEmitterLayer *layer = [CAEmitterLayer layer];
-    layer.name = @"emitterLayer";
-    layer.position = CGPointMake(self.view.frame.size.width/2.0, self.view.frame.size.height/2.0);
-    layer.emitterCells = self.cells;
-    [self.view.layer addSublayer:layer];
+    [self.view addSubview:_backgroundView];
+    
+
+    
+    //    [self.view setBackgroundColor:[UIColor blackColor]];
+    
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPan:)];
+    [_backgroundView addGestureRecognizer:pan];
     
     
-    layer.beginTime = CACurrentMediaTime();
-    for (int i = 0; i < SendCountEveryTime; i++) {
-        [layer setValue:@(SendCountEveryTime) forKeyPath:[NSString stringWithFormat:@"emitterCells.explosion_%d.birthRate",i]];
-    }
-    _button.userInteractionEnabled = NO;
-    [self performSelector:@selector(stopAnimationWithObj:) withObject:layer afterDelay:0.1];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        _button.userInteractionEnabled = YES;
-    });
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [layer removeFromSuperlayer];
-    });
+//    NSMutableArray *images = [[NSMutableArray alloc]init];
+//    for (int i = 0; i < SendCountEveryTime; i++) {
+//        int x = arc4random() % 100 + 1;
+//        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%03d",x]];
+//        [images addObject:image];
+//    }
+//
+//    for (int i = 0; i < SendCountEveryTime; i++) {
+//        CAEmitterCell *cell = [CAEmitterCell emitterCell];
+//        cell.name           = [NSString stringWithFormat:@"explosion_%d",i];
+//        cell.alphaRange     = 0.5;
+//        cell.alphaSpeed     = -0.5;
+//        cell.lifetime       = 4;
+//        cell.lifetimeRange  = 2;
+//        cell.velocity       = 600;
+//        cell.velocityRange  = 200.00;
+//        cell.scale          = 0.5;
+//        cell.yAcceleration  = 600;
+//        cell.emissionLongitude = 2 * M_PI - M_PI_4;
+//        cell.emissionRange = M_PI;
+//        [self.cells addObject:cell];
+//    }
+//
+//    for (int i = 0; i< images.count; i++) {
+//        CAEmitterCell *cell = self.cells[i];
+//        cell.contents =  (__bridge id _Nullable)(([images[i] CGImage]));
+//    }
+//    CAEmitterLayer *layer = [CAEmitterLayer layer];
+//    layer.name = @"emitterLayer";
+//    layer.position = CGPointMake(self.view.frame.size.width/2.0, self.view.frame.size.height/2.0);
+//    layer.emitterCells = self.cells;
+//    [self.view.layer addSublayer:layer];
+//
+//
+//    layer.beginTime = CACurrentMediaTime();
+//    for (int i = 0; i < SendCountEveryTime; i++) {
+//        [layer setValue:@(SendCountEveryTime) forKeyPath:[NSString stringWithFormat:@"emitterCells.explosion_%d.birthRate",i]];
+//    }
+//    _button.userInteractionEnabled = NO;
+//    [self performSelector:@selector(stopAnimationWithObj:) withObject:layer afterDelay:0.1];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        _button.userInteractionEnabled = YES;
+//    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [layer removeFromSuperlayer];
+//    });
     
 }
 
@@ -337,6 +357,12 @@
     return CGSizeMake(SCREEN_WIDTH + ItemSpace, SCREEN_HEIGHT);
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat pageWidth = self.collectionView.width;
+    int page = floor((self.collectionView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    self.pageControl.currentPage = page;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -344,20 +370,23 @@
 
 
 - (void)didPan:(UIPanGestureRecognizer *)pan {
-    CGPoint location = [pan locationInView:self.view];
-    CGPoint point = [pan translationInView:self.view];
-    HYPictureCollectionViewCell *cell = (HYPictureCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    CGPoint location = [pan locationInView:_backgroundView];
+    CGPoint point = [pan translationInView:_backgroundView];
+    HYPictureCollectionViewCell *cell = (HYPictureCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:self.pageControl.currentPage inSection:0]];
     switch (pan.state) {
         case UIGestureRecognizerStateBegan:
         {
             _startPoint = location;
             _zoomScale = cell.zoomScrollView.zoomScale;
             _startCenter = cell.zoomScrollView.imageView.center;
+            _backgroundView.tag = 0;
+            
+            cell.zoomScrollView.imageViewIsMoving = YES;
         }
             break;
         case UIGestureRecognizerStateChanged:
         {
-            if (location.y - _startPoint.y < 0) {
+            if (location.y - _startPoint.y < 0 && _backgroundView.tag == 0) {
                 return;
             }
             double percent = 1 - fabs(point.y) / self.view.frame.size.height;// 移动距离 / 整个屏幕
@@ -370,21 +399,55 @@
             CGAffineTransform scale = CGAffineTransformMakeScale(scalePercent, scalePercent);
             cell.zoomScrollView.imageView.transform = scale;
             cell.zoomScrollView.imageView.center = CGPointMake(self.startCenter.x + point.x, self.startCenter.y + point.y);
+            _backgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:scalePercent / _zoomScale];
+            _backgroundView.tag = 1;
         }
             break;
         case UIGestureRecognizerStateEnded:
         case UIGestureRecognizerStateCancelled: {
 
-            cell.zoomScrollView.imageView.center = self.startCenter;
-
-            cell.zoomScrollView.imageView.transform = CGAffineTransformIdentity;
-
+            cell.zoomScrollView.imageViewIsMoving = NO;
+            
+            if (point.y > 100) {
+                
+                [_backgroundView removeFromSuperview];
+                        
+                
+            } else {
+                
+                
+            }
+            
+            
+            [UIView animateWithDuration:0.25 animations:^{
+                cell.zoomScrollView.imageView.transform = CGAffineTransformIdentity;
+                _backgroundView.backgroundColor = [UIColor blackColor];
+                cell.zoomScrollView.imageView.center = self.startCenter;
+            }completion:^(BOOL finished) {
+                [cell.zoomScrollView layoutSubviews];
+            }];
+            
+            
         }
             break;
 
         default:
             break;
     }
+}
+
+
+
+
+- (UIPageControl *)pageControl {
+    if (!_pageControl) {
+        _pageControl = [[UIPageControl alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 40, SCREEN_WIDTH, 10)];
+        _pageControl.currentPageIndicatorTintColor = [UIColor whiteColor];
+        _pageControl.pageIndicatorTintColor = [UIColor grayColor];
+        _pageControl.numberOfPages = 10;
+        _pageControl.currentPage = 0;
+    }
+    return _pageControl;
 }
 
 
