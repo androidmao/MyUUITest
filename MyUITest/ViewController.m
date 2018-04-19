@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "HYPictureCollectionViewCell.h"
 
+#import "HYGestureScrollView.h"
 
 #define SendCountEveryTime 30
 #define SCREEN_WIDTH  [UIScreen mainScreen].bounds.size.width
@@ -38,6 +39,11 @@
 @property (nonatomic,assign)CGPoint startCenter;
 
 @property (nonatomic,strong) UIPageControl *pageControl;
+
+@property (nonatomic,strong) HYGestureScrollView *gestureSV;
+
+@property (nonatomic,assign) BOOL isVertical;
+@property (nonatomic,assign) BOOL isHorizontal;
 
 @end
 
@@ -238,10 +244,14 @@
         [_backgroundView setBackgroundColor:[UIColor blackColor]];
         
         
-        [_backgroundView addSubview:self.collectionView];
-        [_backgroundView addSubview:self.pageControl];
+//        [_backgroundView addSubview:self.collectionView];
+//        [_backgroundView addSubview:self.pageControl];
+        [_backgroundView addSubview:self.gestureSV];
     }
     
+    
+    self.isVertical = NO;
+    self.isHorizontal = NO;
     
     [self.view addSubview:_backgroundView];
     
@@ -249,7 +259,7 @@
     
     //    [self.view setBackgroundColor:[UIColor blackColor]];
     
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPan:)];
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panAction:)];
     [_backgroundView addGestureRecognizer:pan];
     
     
@@ -450,5 +460,130 @@
     return _pageControl;
 }
 
+
+- (HYGestureScrollView *)gestureSV {
+    if (!_gestureSV) {
+        _gestureSV = [[HYGestureScrollView alloc]init];
+    }
+    return _gestureSV;
+}
+
+
+- (void)panAction:(UIPanGestureRecognizer *)pan {
+    CGPoint location = [pan locationInView:_backgroundView];
+    CGPoint point = [pan translationInView:_backgroundView];
+    
+    switch (pan.state) {
+        case UIGestureRecognizerStateBegan:{
+            NSLog(@"UIGestureRecognizerStateBegan");
+            _startPoint = location;
+            _zoomScale = self.gestureSV.zoomScale;
+            _startCenter = self.gestureSV.moveView.center;
+            _backgroundView.tag = 0;
+            
+            self.gestureSV.viewIsMoving = YES;
+        }
+            break;
+        case UIGestureRecognizerStateChanged:{
+            NSLog(@"UIGestureRecognizerStateChanged");
+            
+            if (!self.isVertical && !self.isHorizontal) {
+                
+                if (fabs(point.x) > fabs(point.y)) {
+                    self.isHorizontal = YES;
+                    self.isVertical = NO;
+                } else {
+                    self.isHorizontal = NO;
+                    self.isVertical = YES;
+                }
+                
+            }
+            
+            if (location.y - _startPoint.y < 0 && _backgroundView.tag == 0) {
+                
+                return;
+            }
+
+            if (location.x - _startPoint.x < 0 && _backgroundView.tag == 0) {
+                return;
+            }
+            
+            if (point.x <= 0 && self.gestureSV.moveView.center.x < _backgroundView.center.x) {
+                return;
+            }
+            
+            if (point.y <= 0 && self.gestureSV.moveView.center.y < _backgroundView.center.y - 10) {
+                return;
+            }
+            
+            double percent = 1 - fabs(point.y) / self.view.frame.size.height;// 移动距离 / 整个屏幕
+            double scalePercent = MAX(percent, 0.3);
+            if (location.y - _startPoint.y < 0) {
+                scalePercent = 1.0 * _zoomScale;
+            }else {
+                scalePercent = _zoomScale * scalePercent;
+            }
+            
+            if (self.isHorizontal) {
+                if (point.x > 0) {
+                    self.gestureSV.moveView.center = CGPointMake(self.startCenter.x + point.x, self.startCenter.y);
+                } else {
+                    self.gestureSV.moveView.center = CGPointMake(self.startCenter.x, self.startCenter.y);
+                }
+                
+            } else {
+                if (point.y > 0) {
+                    self.gestureSV.moveView.center = CGPointMake(self.startCenter.x, self.startCenter.y + point.y);
+                } else {
+                    self.gestureSV.moveView.center = CGPointMake(self.startCenter.x, self.startCenter.y);
+                }
+            }
+            
+            
+            
+            
+            
+            _backgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:scalePercent / _zoomScale];
+            _backgroundView.tag = 1;
+        }
+            break;
+        case UIGestureRecognizerStateEnded:{
+            NSLog(@"UIGestureRecognizerStateEnded");
+        }
+        case UIGestureRecognizerStateCancelled:{
+            
+            self.isHorizontal = NO;
+            self.isVertical = NO;
+            
+            self.gestureSV.viewIsMoving = NO;
+            
+            [self.gestureSV layoutSubviews];
+            
+//            if (point.y > 100) {
+//
+//                [_backgroundView removeFromSuperview];
+//
+//
+//            } else {
+//
+//
+//            }
+//
+//
+//            [UIView animateWithDuration:0.25 animations:^{
+//                _backgroundView.backgroundColor = [UIColor blackColor];
+//                self.gestureSV.moveView.center = self.startCenter;
+//            }completion:^(BOOL finished) {
+//                [self.gestureSV layoutSubviews];
+//            }];
+            
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
 
 @end
