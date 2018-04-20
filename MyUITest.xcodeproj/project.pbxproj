@@ -8,6 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		527302D66CADD7FA6F8DA082 /* Pods_MyUITest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F2AC6D2BA5D1E1FC4BB355 /* Pods_MyUITest.framework */; };
+		FB10D83820887E8900D602C4 /* HYGestureScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB10D83720887E8900D602C4 /* HYGestureScrollView.m */; };
+		FB12C6C020897A5B008D2CE6 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB12C6BE20897A5B008D2CE6 /* BaseTableViewCell.m */; };
+		FB12C6C520897B4A008D2CE6 /* NewsCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB12C6C220897B49008D2CE6 /* NewsCommentTableViewCell.m */; };
+		FB12C6C620897B4A008D2CE6 /* NewsCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB12C6C320897B49008D2CE6 /* NewsCommentViewController.m */; };
+		FB12C6CD20897E3A008D2CE6 /* UIImage+ImgSize.m in Sources */ = {isa = PBXBuildFile; fileRef = FB12C6CA20897E3A008D2CE6 /* UIImage+ImgSize.m */; };
+		FB12C6CE20897E3A008D2CE6 /* GeneralUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = FB12C6CB20897E3A008D2CE6 /* GeneralUtil.m */; };
+		FB12C6CF20897E3A008D2CE6 /* NSDate+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = FB12C6CC20897E3A008D2CE6 /* NSDate+YYAdd.m */; };
+		FB12C6D420897EBD008D2CE6 /* HYObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FB12C6D020897EBD008D2CE6 /* HYObject.m */; };
+		FB12C6D520897EBD008D2CE6 /* NewsContentComment.m in Sources */ = {isa = PBXBuildFile; fileRef = FB12C6D320897EBD008D2CE6 /* NewsContentComment.m */; };
+		FB12C6DD2089837F008D2CE6 /* icon_login_avatar_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB12C6DC2089837F008D2CE6 /* icon_login_avatar_normal@2x.png */; };
+		FB12C6E520898657008D2CE6 /* icon_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB12C6E420898657008D2CE6 /* icon_close@2x.png */; };
 		FB1D4DF92073638000E31D35 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1D4DF82073638000E31D35 /* AppDelegate.m */; };
 		FB1D4DFC2073638000E31D35 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1D4DFB2073638000E31D35 /* ViewController.m */; };
 		FB1D4DFF2073638000E31D35 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB1D4DFD2073638000E31D35 /* Main.storyboard */; };
@@ -23,6 +34,26 @@
 		00F2AC6D2BA5D1E1FC4BB355 /* Pods_MyUITest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyUITest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE53C8C14C26FB9E9BA0C18 /* Pods-MyUITest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyUITest.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyUITest/Pods-MyUITest.release.xcconfig"; sourceTree = "<group>"; };
 		D10C58B2E116C84196709ED6 /* Pods-MyUITest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyUITest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyUITest/Pods-MyUITest.debug.xcconfig"; sourceTree = "<group>"; };
+		FB10D83620887E8900D602C4 /* HYGestureScrollView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HYGestureScrollView.h; sourceTree = "<group>"; };
+		FB10D83720887E8900D602C4 /* HYGestureScrollView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HYGestureScrollView.m; sourceTree = "<group>"; };
+		FB12C6BE20897A5B008D2CE6 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewCell.m; sourceTree = "<group>"; };
+		FB12C6BF20897A5B008D2CE6 /* BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewCell.h; sourceTree = "<group>"; };
+		FB12C6C120897B49008D2CE6 /* NewsCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCommentViewController.h; sourceTree = "<group>"; };
+		FB12C6C220897B49008D2CE6 /* NewsCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCommentTableViewCell.m; sourceTree = "<group>"; };
+		FB12C6C320897B49008D2CE6 /* NewsCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCommentViewController.m; sourceTree = "<group>"; };
+		FB12C6C420897B4A008D2CE6 /* NewsCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCommentTableViewCell.h; sourceTree = "<group>"; };
+		FB12C6C720897E39008D2CE6 /* GeneralUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralUtil.h; sourceTree = "<group>"; };
+		FB12C6C820897E39008D2CE6 /* NSDate+YYAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+YYAdd.h"; sourceTree = "<group>"; };
+		FB12C6C920897E3A008D2CE6 /* UIImage+ImgSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImgSize.h"; sourceTree = "<group>"; };
+		FB12C6CA20897E3A008D2CE6 /* UIImage+ImgSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImgSize.m"; sourceTree = "<group>"; };
+		FB12C6CB20897E3A008D2CE6 /* GeneralUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralUtil.m; sourceTree = "<group>"; };
+		FB12C6CC20897E3A008D2CE6 /* NSDate+YYAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+YYAdd.m"; sourceTree = "<group>"; };
+		FB12C6D020897EBD008D2CE6 /* HYObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYObject.m; sourceTree = "<group>"; };
+		FB12C6D120897EBD008D2CE6 /* NewsContentComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsContentComment.h; sourceTree = "<group>"; };
+		FB12C6D220897EBD008D2CE6 /* HYObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYObject.h; sourceTree = "<group>"; };
+		FB12C6D320897EBD008D2CE6 /* NewsContentComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsContentComment.m; sourceTree = "<group>"; };
+		FB12C6DC2089837F008D2CE6 /* icon_login_avatar_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_login_avatar_normal@2x.png"; sourceTree = "<group>"; };
+		FB12C6E420898657008D2CE6 /* icon_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_close@2x.png"; sourceTree = "<group>"; };
 		FB1D4DF42073638000E31D35 /* MyUITest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyUITest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB1D4DF72073638000E31D35 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FB1D4DF82073638000E31D35 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -62,6 +93,29 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		FB12C6BD208979CB008D2CE6 /* NewsComment */ = {
+			isa = PBXGroup;
+			children = (
+				FB12C6D220897EBD008D2CE6 /* HYObject.h */,
+				FB12C6D020897EBD008D2CE6 /* HYObject.m */,
+				FB12C6D120897EBD008D2CE6 /* NewsContentComment.h */,
+				FB12C6D320897EBD008D2CE6 /* NewsContentComment.m */,
+				FB12C6C720897E39008D2CE6 /* GeneralUtil.h */,
+				FB12C6CB20897E3A008D2CE6 /* GeneralUtil.m */,
+				FB12C6C820897E39008D2CE6 /* NSDate+YYAdd.h */,
+				FB12C6CC20897E3A008D2CE6 /* NSDate+YYAdd.m */,
+				FB12C6C920897E3A008D2CE6 /* UIImage+ImgSize.h */,
+				FB12C6CA20897E3A008D2CE6 /* UIImage+ImgSize.m */,
+				FB12C6BF20897A5B008D2CE6 /* BaseTableViewCell.h */,
+				FB12C6BE20897A5B008D2CE6 /* BaseTableViewCell.m */,
+				FB12C6C420897B4A008D2CE6 /* NewsCommentTableViewCell.h */,
+				FB12C6C220897B49008D2CE6 /* NewsCommentTableViewCell.m */,
+				FB12C6C120897B49008D2CE6 /* NewsCommentViewController.h */,
+				FB12C6C320897B49008D2CE6 /* NewsCommentViewController.m */,
+			);
+			path = NewsComment;
+			sourceTree = "<group>";
+		};
 		FB1D4DEB2073638000E31D35 = {
 			isa = PBXGroup;
 			children = (
@@ -83,12 +137,15 @@
 		FB1D4DF62073638000E31D35 /* MyUITest */ = {
 			isa = PBXGroup;
 			children = (
+				FB12C6BD208979CB008D2CE6 /* NewsComment */,
 				FB1D4DF72073638000E31D35 /* AppDelegate.h */,
 				FB1D4DF82073638000E31D35 /* AppDelegate.m */,
 				FB1D4DFA2073638000E31D35 /* ViewController.h */,
 				FB1D4DFB2073638000E31D35 /* ViewController.m */,
 				FB1D4DFD2073638000E31D35 /* Main.storyboard */,
 				FB1D4E002073638000E31D35 /* Assets.xcassets */,
+				FB12C6DC2089837F008D2CE6 /* icon_login_avatar_normal@2x.png */,
+				FB12C6E420898657008D2CE6 /* icon_close@2x.png */,
 				FB1D4E022073638000E31D35 /* LaunchScreen.storyboard */,
 				FB1D4E052073638000E31D35 /* Info.plist */,
 				FB1D4E062073638000E31D35 /* main.m */,
@@ -98,6 +155,8 @@
 				FBBDDADF2085C454001862CA /* HYZoomScrollView.m */,
 				FBBDDAE1208608CD001862CA /* UIView+LBFrame.h */,
 				FBBDDAE2208608CD001862CA /* UIView+LBFrame.m */,
+				FB10D83620887E8900D602C4 /* HYGestureScrollView.h */,
+				FB10D83720887E8900D602C4 /* HYGestureScrollView.m */,
 			);
 			path = MyUITest;
 			sourceTree = "<group>";
@@ -174,6 +233,8 @@
 				FB1D4E042073638000E31D35 /* LaunchScreen.storyboard in Resources */,
 				FB1D4E012073638000E31D35 /* Assets.xcassets in Resources */,
 				FB1D4DFF2073638000E31D35 /* Main.storyboard in Resources */,
+				FB12C6E520898657008D2CE6 /* icon_close@2x.png in Resources */,
+				FB12C6DD2089837F008D2CE6 /* icon_login_avatar_normal@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,11 +266,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MyUITest/Pods-MyUITest-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 			);
@@ -240,12 +307,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB12C6CE20897E3A008D2CE6 /* GeneralUtil.m in Sources */,
+				FB12C6D420897EBD008D2CE6 /* HYObject.m in Sources */,
 				FBBDDAE3208608CD001862CA /* UIView+LBFrame.m in Sources */,
 				FBBDDADD2085A94E001862CA /* HYPictureCollectionViewCell.m in Sources */,
 				FB1D4DFC2073638000E31D35 /* ViewController.m in Sources */,
+				FB10D83820887E8900D602C4 /* HYGestureScrollView.m in Sources */,
+				FB12C6C020897A5B008D2CE6 /* BaseTableViewCell.m in Sources */,
+				FB12C6C620897B4A008D2CE6 /* NewsCommentViewController.m in Sources */,
 				FBBDDAE02085C454001862CA /* HYZoomScrollView.m in Sources */,
 				FB1D4E072073638000E31D35 /* main.m in Sources */,
+				FB12C6C520897B4A008D2CE6 /* NewsCommentTableViewCell.m in Sources */,
+				FB12C6CF20897E3A008D2CE6 /* NSDate+YYAdd.m in Sources */,
 				FB1D4DF92073638000E31D35 /* AppDelegate.m in Sources */,
+				FB12C6D520897EBD008D2CE6 /* NewsContentComment.m in Sources */,
+				FB12C6CD20897E3A008D2CE6 /* UIImage+ImgSize.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

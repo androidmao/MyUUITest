@@ -260,7 +260,11 @@
     //    [self.view setBackgroundColor:[UIColor blackColor]];
     
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panAction:)];
+
     [_backgroundView addGestureRecognizer:pan];
+    
+    
+    
     
     
 //    NSMutableArray *images = [[NSMutableArray alloc]init];
@@ -469,6 +473,8 @@
 }
 
 
+
+
 - (void)panAction:(UIPanGestureRecognizer *)pan {
     CGPoint location = [pan locationInView:_backgroundView];
     CGPoint point = [pan translationInView:_backgroundView];
@@ -585,5 +591,7 @@
             break;
     }
 }
+
+
 
 @end
