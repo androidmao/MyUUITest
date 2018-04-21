@@ -7,5 +7,8 @@ target ‘MyUITest’ do
    
    pod 'Masonry'
    pod 'SDWebImage'
+   pod 'AFNetworking'
+   pod 'MJExtension'
+   pod 'MJRefresh'
    
 end
