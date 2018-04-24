@@ -45,6 +45,7 @@
 @property (nonatomic,assign) BOOL isVertical;
 @property (nonatomic,assign) BOOL isHorizontal;
 
+
 @end
 
 @implementation ViewController
@@ -241,19 +242,38 @@
     
     if (!_backgroundView) {
         _backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        [_backgroundView setBackgroundColor:[UIColor blackColor]];
+        
+        [_backgroundView setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]];
         
         
 //        [_backgroundView addSubview:self.collectionView];
 //        [_backgroundView addSubview:self.pageControl];
         [_backgroundView addSubview:self.gestureSV];
+        
+        
     }
     
     
     self.isVertical = NO;
     self.isHorizontal = NO;
     
+    
+    [self.gestureSV setFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [_backgroundView setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.1]];
+    
     [self.view addSubview:_backgroundView];
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        
+        [self.gestureSV setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        _backgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        
+    }completion:^(BOOL finished) {
+        
+        
+        
+    }];
+    
     
 
     
@@ -522,13 +542,7 @@
                 return;
             }
             
-            double percent = 1 - fabs(point.y) / self.view.frame.size.height;// 移动距离 / 整个屏幕
-            double scalePercent = MAX(percent, 0.3);
-            if (location.y - _startPoint.y < 0) {
-                scalePercent = 1.0 * _zoomScale;
-            }else {
-                scalePercent = _zoomScale * scalePercent;
-            }
+
             
             if (self.isHorizontal) {
                 if (point.x > 0) {
@@ -537,20 +551,31 @@
                     self.gestureSV.moveView.center = CGPointMake(self.startCenter.x, self.startCenter.y);
                 }
                 
+                
+                double percent = 1 - fabs(point.x) / self.view.frame.size.width;// 移动距离 / 整个屏幕
+//                double scalePercent = MAX(percent, 0.3);
+                double scalePercent = percent * 0.5;
+                
+                _backgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:scalePercent / _zoomScale];
+                _backgroundView.tag = 1;
+                
             } else {
                 if (point.y > 0) {
                     self.gestureSV.moveView.center = CGPointMake(self.startCenter.x, self.startCenter.y + point.y);
                 } else {
                     self.gestureSV.moveView.center = CGPointMake(self.startCenter.x, self.startCenter.y);
                 }
+                
+                double percent = 1 - fabs(point.y) / self.view.frame.size.height;// 移动距离 / 整个屏幕
+//                double scalePercent = MAX(percent, 0.3);
+                double scalePercent = percent * 0.5;
+                
+                _backgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:scalePercent / _zoomScale];
+                _backgroundView.tag = 1;
+                
             }
             
             
-            
-            
-            
-            _backgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:scalePercent / _zoomScale];
-            _backgroundView.tag = 1;
         }
             break;
         case UIGestureRecognizerStateEnded:{
@@ -558,30 +583,40 @@
         }
         case UIGestureRecognizerStateCancelled:{
             
-            self.isHorizontal = NO;
-            self.isVertical = NO;
             
-            self.gestureSV.viewIsMoving = NO;
             
-            [self.gestureSV layoutSubviews];
-            
-//            if (point.y > 100) {
-//
-//                [_backgroundView removeFromSuperview];
-//
-//
-//            } else {
-//
-//
-//            }
-//
-//
-//            [UIView animateWithDuration:0.25 animations:^{
-//                _backgroundView.backgroundColor = [UIColor blackColor];
-//                self.gestureSV.moveView.center = self.startCenter;
-//            }completion:^(BOOL finished) {
-//                [self.gestureSV layoutSubviews];
-//            }];
+            if (point.y > 100 || point.x > 100) {
+                
+                [UIView animateWithDuration:0.3 animations:^{
+                    if (self.isHorizontal) {
+                        self.gestureSV.moveView.center = CGPointMake(self.startCenter.x * 3, self.startCenter.y);
+                    } else {
+                        self.gestureSV.moveView.center = CGPointMake(self.startCenter.x, self.startCenter.y * 3);
+                    }
+                    _backgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
+                    
+                }completion:^(BOOL finished) {
+                    
+                    self.isHorizontal = NO;
+                    self.isVertical = NO;
+                    self.gestureSV.viewIsMoving = NO;
+                    [self.gestureSV layoutSubviews];
+                    _backgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+                    [_backgroundView removeFromSuperview];
+                    
+                }];
+
+                
+            } else {
+
+                self.isHorizontal = NO;
+                self.isVertical = NO;
+                self.gestureSV.viewIsMoving = NO;
+                [self.gestureSV layoutSubviews];
+                _backgroundView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+                
+            }
+
             
             
         }

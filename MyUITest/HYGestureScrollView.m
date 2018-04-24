@@ -48,7 +48,7 @@
         [self setShowsVerticalScrollIndicator:NO];
         [self setShowsHorizontalScrollIndicator:NO];
         [self setDecelerationRate:UIScrollViewDecelerationRateFast];
-        [self setFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
+//        [self setFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
         [self addSubview:self.moveView];
         
         
@@ -64,7 +64,7 @@
             make.height.mas_equalTo(50);
         }];
         
-        [self.moveView layoutIfNeeded];
+        [self.titleLabel layoutIfNeeded];
         
         UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.titleLabel.bounds byRoundingCorners:(UIRectCornerTopLeft | UIRectCornerTopRight) cornerRadii:CGSizeMake(10, 10)];
         CAShapeLayer *maskLayer = [[CAShapeLayer alloc]init];
@@ -78,9 +78,7 @@
         bottomBorder.frame = CGRectMake(0.0f, self.titleLabel.frame.size.height - 0.5, self.titleLabel.frame.size.width, 0.5);
         
         bottomBorder.backgroundColor = [GeneralUtil colorWithHexString:@"#ECF0F2"].CGColor;
-//        bottomBorder.backgroundColor = [UIColor lightGrayColor].CGColor;
-        
-        
+
         [self.titleLabel.layer addSublayer:bottomBorder];
         
         
@@ -108,18 +106,21 @@
         [self.tableHeaderContainerView addSubview:self.commentLabel];
         [self.tableHeaderContainerView addSubview:self.createTimeLabel];
         
+
         [self.avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.tableHeaderContainerView).mas_offset(15);
             make.top.mas_equalTo(self.tableHeaderContainerView).mas_offset(15);
             make.size.mas_equalTo(CGSizeMake(35, 35));
         }];
-        
+
         [self.usernameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.avatarImageView.mas_right).mas_offset(15);
             make.top.mas_equalTo(self.tableHeaderContainerView).mas_offset(15);
             make.size.mas_equalTo(CGSizeMake(120, 20));
         }];
         
+        
+
         [self.commentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.avatarImageView.mas_right).mas_offset(15);
             make.right.mas_equalTo(self.tableHeaderContainerView).mas_offset(-15);
@@ -133,24 +134,21 @@
             make.bottom.mas_equalTo(self.tableHeaderContainerView).mas_offset(-10);
             make.height.mas_equalTo(20);
         }];
+
+
+        [self.tableHeaderContainerView setFrame:CGRectMake(0, 0, SCREEN_W, 150)];
+        CALayer *bottomBorder1 = [CALayer layer];
         
-        UIView *lineView1 = [[UIView alloc]init];
-        [lineView1 setBackgroundColor:[GeneralUtil colorWithHexString:@"#ECF0F2"]];
-        [self.tableHeaderContainerView addSubview:lineView1];
+        bottomBorder1.frame = CGRectMake(0.0f, self.tableHeaderContainerView.frame.size.height - 0.5, self.tableHeaderContainerView.frame.size.width, 0.5);
         
-        [lineView1 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.tableHeaderContainerView);
-            make.right.mas_equalTo(self.tableHeaderContainerView);
-            make.bottom.mas_equalTo(self.tableHeaderContainerView);
-            make.height.mas_equalTo(0.5);
-        }];
+        bottomBorder1.backgroundColor = [GeneralUtil colorWithHexString:@"#ECF0F2"].CGColor;
         
-        
-        [self.tableHeaderContainerView setFrame:CGRectMake(0, 0, SCREEN_W, 95)];
+        [self.tableHeaderContainerView.layer addSublayer:bottomBorder1];
+
+        [self.tableView layoutIfNeeded];
         
         [self.tableView setTableHeaderView:self.tableHeaderContainerView];
         
-        NSLog(@"panGes:%@",self.tableView.panGestureRecognizer);
     }
     return self;
 }
@@ -161,25 +159,6 @@
         [_moveView setBackgroundColor:[UIColor clearColor]];
     }
     return _moveView;
-}
-
-#pragma mark - UIScrollViewDelegate
-
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    return self.moveView;
-}
-
-- (void)scrollViewDidZoom:(UIScrollView *)scrollView {
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
-}
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale{
-    if (scrollView.minimumZoomScale != scale) return;
-    [self setZoomScale:self.minimumZoomScale animated:YES];
-    //    [self resetScrollViewStatusWithImage:self.model.currentPageImage]
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
-    
 }
 
 
@@ -199,21 +178,8 @@
 }
 
 
-
-
-
-
-
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 
-     NSLog(@"scrollViewDidScroll:%@",scrollView);
-    if (scrollView == self.tableView) {
-        CGFloat offY = scrollView.contentOffset.y;
-        if (offY < 0) {
-            scrollView.contentOffset = CGPointZero;
-        }
-    }
     
 }
 
@@ -325,7 +291,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80;
+    return 100;
 }
 
 
